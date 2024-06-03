@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Card, Col} from 'react-bootstrap';
+import CommentArea from './CommentArea'
+
+
 export default function SingleBook({book}) {
 
 
@@ -17,6 +20,7 @@ export default function SingleBook({book}) {
         
       </Card.Body>
     </Card>
+    {selected && <CommentArea asin={book.asin} />}
        </Col>
   )
 }
