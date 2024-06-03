@@ -1,27 +1,21 @@
-import React from 'react'
-import { Card, Col, Row } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Row } from 'react-bootstrap';
+import SingleBook from './SingleBook';
+import SearchBook from './SearchBook';
 
 export default function AllTheBooks(props) {
-  console.log(props.books);
+
+const [search, setSearch] = useState("");
+const handleSearch = (e) => setSearch(e.target.value)
+
   return (
+    <>
+    <Row><SearchBook search={search} handleSearch={handleSearch}/></Row>
     <Row>
-      {props.books.map(book => (
-       <Col>
-          <Card style={{ width: '18rem' }}>
-           <Card.Img variant="top" src={book.img} />
-      <Card.Body>
-        <Card.Title>{book.title}</Card.Title>
-        <Card.Text>
-          $ {book.price} 
-        </Card.Text>
-        
-      </Card.Body>
-    </Card>
-       </Col>
-
-
-      ))}
-   
-  </Row>
+      {props.books
+        .filter(book => book.title.toLowerCase().includes(search))
+        .map(book => <SingleBook key={book.asin} book={book}/>)}
+    </Row>
+    </>
   )
 }

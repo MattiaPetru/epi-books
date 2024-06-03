@@ -20,11 +20,11 @@ function App() {
       <MyNav />
       <Container className='my-3'>
         <Welcome />
-        <Button variant="secondary" onClick={() => setType("fantasy")}>Fantasy</Button>
-        <Button variant="secondary" onClick={() => setType("history")}>History</Button>
-        <Button variant="secondary" onClick={() => setType("horror")}>Horror</Button>
-        <Button variant="secondary" onClick={() => setType("romance")}>Romance</Button>
-        <Button variant="secondary" onClick={() => setType("scifi")}>Scifi</Button>
+        <Button variant="secondary" className='m-1' onClick={() => setType("fantasy")}>Fantasy</Button>
+        <Button variant="secondary" className='m-1' onClick={() => setType("history")}>History</Button>
+        <Button variant="secondary" className='m-1' onClick={() => setType("horror")}>Horror</Button>
+        <Button variant="secondary" className='m-1' onClick={() => setType("romance")}>Romance</Button>
+        <Button variant="secondary" className='m-1' onClick={() => setType("scifi")}>Scifi</Button>
 
         {type === "fantasy" && <AllTheBooks books={fantasy} />}
         {type === "history" && <AllTheBooks books={history} />}
