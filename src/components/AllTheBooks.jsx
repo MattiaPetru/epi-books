@@ -1,21 +1,28 @@
 import React, { useState } from 'react'
-import { Row } from 'react-bootstrap';
-import SingleBook from './SingleBook';
-import SearchBook from './SearchBook';
+import { Col, Row } from 'react-bootstrap'
+import SingleBook from './SingleBook'
+
 
 export default function AllTheBooks(props) {
 
-const [search, setSearch] = useState("");
-const handleSearch = (e) => setSearch(e.target.value)
 
+  const  [selected, setSelected] = useState(false);
+    
   return (
-    <>
-    <Row><SearchBook search={search} handleSearch={handleSearch}/></Row>
+
     <Row>
-      {props.books
-        .filter(book => book.title.toLowerCase().includes(search))
-        .map(book => <SingleBook key={book.asin} book={book}/>)}
+      <Col md={12}>
+     
+        <Row> {props.books
+              .filter(book => book.title.toLowerCase().includes(props.searchQuery))
+              .map(book => <SingleBook 
+                   key={book.asin} 
+                   book={book}
+                   selected = {selected}
+                   setSelected = {setSelected}
+               />)} 
+        </Row>
+      </Col>
     </Row>
-    </>
   )
 }

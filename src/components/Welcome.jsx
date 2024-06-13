@@ -3,7 +3,7 @@ import {Alert} from "react-bootstrap"
 
 export default function Welcome() {
   return (
-    <Alert variant="warning" className='text-center'>
+    <Alert variant="danger" className='text-center'>
     <h1>App React Books</h1>
   </Alert>
   )

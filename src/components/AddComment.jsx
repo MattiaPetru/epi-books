@@ -1,91 +1,58 @@
-import { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 
-const AddComment = ({ asin }) => {
-  const [comment, setComment] = useState({
-    comment: '',
-    rate: 1,
-    elementId: null,
-  })
+import axios from '../modules/ApiAxios'
 
-  useEffect(() => {
-    setComment((c) => ({
-      ...c,
-      elementId: asin,
-    }))
-  }, [asin])
+export default function AddComment({elementId, setAdd, add}) {
 
-  const sendComment = async (e) => {
-    e.preventDefault()
-    try {
-      let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments',
-        {
-          method: 'POST',
-          body: JSON.stringify(comment),
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNhNmNmYjBiM2IyNTAwMTUxYjU1NmQiLCJpYXQiOjE3MTc0MzIxNDYsImV4cCI6MTcxODY0MTc0Nn0.h72WqRHPPW2FPzl7Y-gJbu5z3vhNRzgxwMNKTtvm4Lg',
-          },
-        }
-      )
-      if (response.ok) {
-        alert('Recensione inviata!')
-        setComment({
-          comment: '',
-          rate: 1,
-          elementId: null,
-        })
-      } else {
-        throw new Error('Qualcosa è andato storto')
-      }
-    } catch (error) {
-      alert(error)
-    }
+  const [comments, setComments] = useState({comment: '', rate: 0, elementId: elementId})
+
+  let setCommentHandler = (e) => {
+    setComments({
+      ...comments, // {comment: '', rate: 0, elementId: elementId}
+      comment: e.target.value,
+      elementId: elementId
+    })
+  }
+
+  let setRateHandler = (e) => {
+    setComments({
+      ...comments, // {comment: '', rate: 0, elementId: elementId}
+      rate: e.target.value,
+      elementId: elementId
+    })
+  }
+
+  let sendComment = () => {
+    axios.post('/comments/', comments)
+    .then(response => {
+      setAdd(!add)
+      setComments({comment: '', rate: 0, elementId: elementId})
+    }).catch(error => console.error(error))
   }
 
   return (
-    <div className="my-3">
-      <Form onSubmit={sendComment}>
-        <Form.Group className="mb-2">
-          <Form.Label>Recensione</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Inserisci qui il testo"
-            value={comment.comment}
-            onChange={(e) =>
-              setComment({
-                ...comment,
-                comment: e.target.value,
-              })
-            }
-          />
-        </Form.Group>
-        <Form.Group className="mb-2">
-          <Form.Label>Valutazione</Form.Label>
-          <Form.Control
-            as="select"
-            value={comment.rate}
-            onChange={(e) =>
-              setComment({
-                ...comment,
-                rate: e.target.value,
-              })
-            }
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Invia
-        </Button>
-      </Form>
-    </div>
+    <Form>
+      <Form.Group className="mb-3">
+        <Form.Control 
+                type="text" 
+                placeholder="Inserisci qui il tuo commento"
+                onChange={setCommentHandler}        
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Select aria-label="Default select example" onChange={setRateHandler}>
+          <option>Open this select menu</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </Form.Select>
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Button variant="dark" onClick={sendComment}>Add Comment</Button>
+      </Form.Group>
+    </Form>
   )
 }
-
-export default AddComment

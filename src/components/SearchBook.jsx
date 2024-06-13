@@ -9,9 +9,9 @@ export default function SearchBook({search, handleSearch}) {
         <Form.Control 
          type="search"
          placeholder="Cerca un libro"
-        value={search}
-        onChange={handleSearch}
-          />
+         value={search}
+         onChange={handleSearch}
+        />
     </Form.Group>
     </Col>
   )
