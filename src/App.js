@@ -14,6 +14,7 @@ import { ThemeContext, AuthContext } from './modules/Contexts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import BookDetail from './components/BookDetail';
+import Home from './pages/Home';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
   let [theme, setTheme] = useState('light');
   let [authUser, setAuthUser] = useState('Mattia Petruzzi');
 
+  let generi = { fantasy, history, horror, romance, scifi }
   return (
     <>
       <ThemeContext.Provider value={[theme, setTheme]}>
@@ -32,25 +34,12 @@ function App() {
 
             <MyNav search={search} handleSearch={handleSearch} />
             <Container className='my-3'>
-              <Welcome />
+
               <Routes>
-                <Route index element={<AllTheBooks books={fantasy} searchQuery={search} />} />
+                <Route index element={<Home books={generi} type={type} search={search} setType={setType} searchQuery={search} />} />
                 <Route path='/details/:asin' element={<BookDetail />} />
                 <Route path='*' element={<NotFound />} />
               </Routes>
-              {/*
-              <Button variant="secondary" className='m-1' onClick={() => setType("fantasy")}>Fantasy</Button>
-              <Button variant="secondary" className='m-1' onClick={() => setType("history")}>History</Button>
-              <Button variant="secondary" className='m-1' onClick={() => setType("horror")}>Horror</Button>
-              <Button variant="secondary" className='m-1' onClick={() => setType("romance")}>Romance</Button>
-              <Button variant="secondary" className='m-1' onClick={() => setType("scifi")}>Scifi</Button>
-
-              {type === "fantasy" && <AllTheBooks books={fantasy} />}
-              {type === "history" && <AllTheBooks books={history} />}
-              {type === "horror" && <AllTheBooks books={horror} />}
-              {type === "romance" && <AllTheBooks books={romance} />}
-              {type === "scifi" && <AllTheBooks books={scifi} />}*/}
-
 
             </Container>
             <MyFooter />

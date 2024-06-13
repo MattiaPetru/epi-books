@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import SingleBook from './SingleBook'
 
 
-export default function AllTheBooks(props) {
+export default function AllTheBooks({books, search}) {
 
 
   const  [selected, setSelected] = useState(false);
@@ -13,8 +13,8 @@ export default function AllTheBooks(props) {
     <Row>
       <Col md={12}>
      
-        <Row> {props.books
-              .filter(book => book.title.toLowerCase().includes(props.searchQuery))
+        <Row> {books
+              .filter(book => book.title.toLowerCase().includes(search))
               .map(book => <SingleBook 
                    key={book.asin} 
                    book={book}

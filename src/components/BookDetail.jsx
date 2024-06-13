@@ -1,15 +1,15 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import fantasy from '../books/fantasy.json';
+import allBooks from '../books/allBooks.json';
 import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 import CommentArea from './CommentArea';
 
 export default function BookDetail() {
 
     const { asin } = useParams();
-    const book = fantasy.find( b => b.asin === asin); // {} || undefined
+    const book = allBooks.find( b => b.asin === asin); // {} || undefined
     
-    console.log(book)
+    console.log(book.img)
   return (
     <Row>
         <Col md={8}>
