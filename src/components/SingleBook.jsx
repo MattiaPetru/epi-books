@@ -11,7 +11,7 @@ export default function SingleBook({book, selected, setSelected}) {
 
   return (
     <Col>
-      <Card bg={themeCtx} data-bs-theme={themeCtx} className="my-2" style={{ width: "18rem", border: selected === book.asin ? '2px solid red' : 'none' }} 
+      <Card data-testid="libro-card" bg={themeCtx} data-bs-theme={themeCtx} className="my-2" style={{ width: "18rem", border: selected === book.asin ? '2px solid red' : 'none' }} 
       onClick={() => setSelected(book.asin)}>
         <Card.Img variant="top" style={{height: "400px"}} src={book.img} />
         <Card.Body>
