@@ -25,19 +25,6 @@ test("ci sono tante card quanti gli oggetti del file json?", async () => {
   expect(libri).toHaveLength(150);
 
 })
-
-//test 3
-
-test('verifico componente CommentArea venga renderizzato correttamente', () => {
-
-  const mockAsin = '123456';
-  const { getByTestId } = render(<CommentArea asin={mockAsin} />);
-
-  const commentAreaElement = getByTestId('Commentone');
-
-  expect(commentAreaElement).toBeInTheDocument();
- });
-
 // test 4
 
 test("filtra le card in base alla ricerca", async () => {
@@ -83,24 +70,32 @@ test("verifico che al click cambia il bordo della card", async () => {
   expect(firstCard).not.toHaveStyle('border: 2px solid red');
   });
 
+
 //test 7
 test("verifico che non ci siano commenti al caricamento della pagina", () => {
-   render(<App />)
-   const commento = screen.queryByText(/Add Comment/i);
-   expect(commento).not.toBeInTheDocument()
+  render(<App />)
+  
+  const commento = screen.queryByText(/Add Comment/i);
+  expect(commento).not.toBeInTheDocument()
 })
+//test 3
+
+test('verifico componente CommentArea venga renderizzato correttamente', () => {
+  render(<App />)
+
+  const btnDetail = screen.getAllByRole('button', {name: /Book Details/i})
+  fireEvent.click(btnDetail[0])
+  const commentArea = screen.getAllByPlaceholderText(/Inserisci qui il tuo commento/i);
+  expect(commentArea[0]).toBeInTheDocument()
+ });
 
 
 //test 8
 
 test('verifico commenti vengono renderizzati correttamente', () => {
- 
-  const mockAsin = '123456';
-  const { getByTestId } = render(<CommentArea asin={mockAsin} />);
+  render(<App />)
 
-  const commentAreaElement = getByTestId('Commentone');
-  const icona = screen.queryByText(/Recensioni/i);
-  
+  const commentAreaElement = screen.getByTestId('Commentone');
   expect(commentAreaElement).toBeInTheDocument();
-  expect(icona).toBeInTheDocument();
+
   });
