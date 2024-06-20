@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import '@testing-library/jest-dom';
 import React from 'react';
-import CommentArea from "./CommentArea";
 import App from "../App";
 import Welcome from "./Welcome"
 
@@ -68,7 +67,7 @@ test("verifico che al click cambia il bordo della card", async () => {
 
   expect(secondCard).toHaveStyle('border: 2px solid red');
   expect(firstCard).not.toHaveStyle('border: 2px solid red');
-  });
+});
 
 
 //test 7
@@ -98,4 +97,4 @@ test('verifico commenti vengono renderizzati correttamente', () => {
   const commentAreaElement = screen.getByTestId('Commentone');
   expect(commentAreaElement).toBeInTheDocument();
 
-  });
+});

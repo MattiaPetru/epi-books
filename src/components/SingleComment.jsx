@@ -15,7 +15,6 @@ export default function SingleComment({comment,setAdd,add}) {
 
   return (
     <ListGroup.Item>
-      <h3>Recensioni</h3>
       {Array.from({length:comment.rate}).map(rate => <StarFill />)}
        {comment.comment}
       <Button variant="outline-danger" className='float-end' onClick={() => removeComment(comment)}>x</Button>  

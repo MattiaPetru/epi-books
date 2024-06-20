@@ -15,7 +15,7 @@ export default function SingleBook({book, selected, setSelected}) {
       onClick={() => setSelected(book.asin)}>
         <Card.Img variant="top" style={{height: "400px"}} src={book.img} />
         <Card.Body>
-          <Card.Title style={{height: "72px"}}>{book.title}</Card.Title>
+          <Card.Title style={{height: "72px", overflow: "hidden"}}>{book.title}</Card.Title>
           <Button 
             className="btn btn-dark w-100 my-2"
             onClick={() => navigate('/details/'+ book.asin)}
